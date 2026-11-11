@@ -4,6 +4,144 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UI States: Browser Defaults</title>
+
+<style>
+    :root {
+        --color-accent: oklch(50% 0.13 155);
+        --color-on-accent: white;
+        --color-focus: oklch(50% 0.2 260);
+        --color-error: oklch(50% 0.19 25);
+
+        --radius: 0.5rem;
+
+        --duration-fast: 150ms;
+        --duration-base: 250ms;
+
+        --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+
+/* Challenge 1: Keyboard Focus */
+
+    :focus-visible {
+        outline: 3px solid var(--color-focus);
+        outline-offset: 3px;
+    }
+
+    /* Default State */
+    .primary {
+        background-color: var(--color-accent);
+        color: var(--color-on-accent);
+
+        border: none;
+        border-radius: var(--radius);
+
+        padding: 0.75rem 1.5rem;
+
+        cursor: pointer;
+
+        transition:
+            background-color var(--duration-base) var(--ease-out),
+            transform var(--duration-fast) var(--ease-out);
+    }
+
+/* Hover State */
+    .primary:hover:not(:disabled) {
+        background-color: oklch(58% 0.13 155);
+    }
+
+/* Active State */
+    .primary:active:not(:disabled) {
+        transform: translateY(2px);
+    }
+
+/* Disabled State */
+    .primary:disabled {
+        background-color: #d1d5db;
+        color: #6b7280;
+
+        cursor: not-allowed;
+        opacity: 0.65;
+    }
+
+
+/* Secondary Button */
+    .secondary {
+        background-color: transparent;
+        color: var(--color-accent);
+
+        border: 2px solid var(--color-accent);
+        border-radius: var(--radius);
+
+        padding: 0.75rem 1.5rem;
+
+        cursor: pointer;
+
+        transition:
+            background-color var(--duration-base) var(--ease-out),
+            color var(--duration-base) var(--ease-out),
+            border-color var(--duration-base) var(--ease-out),
+            transform var(--duration-fast) var(--ease-out);
+    }
+
+/* Secondary Hover */
+    .secondary:hover:not(:disabled) {
+        background-color: var(--color-accent);
+        color: var(--color-on-accent);
+    }
+
+/* Secondary Active */
+    .secondary:active:not(:disabled) {
+        transform: translateY(2px);
+    }
+
+/* Secondary Disabled */
+    .secondary:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+    }
+
+    .arrow {
+        display: inline-block;
+
+        transition:
+            transform var(--duration-base) var(--ease-out);
+    }
+
+    .card:hover .arrow,
+    .card:has(a:focus-visible) .arrow {
+        transform: translateX(5px);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+    /* Remove button movement */
+    .primary,
+    .secondary {
+        transition:
+            background-color var(--duration-base) var(--ease-out),
+            color var(--duration-base) var(--ease-out),
+            border-color var(--duration-base) var(--ease-out);
+    }
+
+    /* Stop button press-down movement */
+    .primary:active:not(:disabled),
+    .secondary:active:not(:disabled) {
+        transform: none;
+    }
+
+    /* Stop arrow movement */
+    .arrow {
+        transition: none;
+    }
+
+    .card:hover .arrow,
+    .card:has(a:focus-visible) .arrow {
+        transform: none;
+    }
+  }
+</style>
+
 </head>
 <body>
 
@@ -52,9 +190,9 @@
         </label>
 
         <div class="actions">
-          <button type="submit">Sign up</button>
+          <button type="submit" class="primary">Sign up</button>
           <button type="button" class="secondary">Cancel</button>
-          <button type="button" disabled>Disabled</button>
+          <button type="button" class="primary" disabled>Disabled</button>
         </div>
       </form>
     </section>
