@@ -1,0 +1,1355 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="description"
+        content="Enter the DarkBourne Guild. Discover your place among the Infinite Realms."
+    >
+
+    <meta name="theme-color" content="#0b0b12">
+
+    <title>DarkBourne | The Eclipse Initiative</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        /* =========================================
+           1. DESIGN TOKENS
+        ========================================= */
+
+        :root {
+            color-scheme: dark;
+
+            /* Colors */
+            --color-background: #0b0b12;
+            --color-surface: #141421;
+            --color-surface-light: #1d1d2d;
+
+            --color-accent: #8b5cf6;
+            --color-accent-light: #a78bfa;
+            --color-accent-dark: #6d28d9;
+
+            --color-crimson: #c43b52;
+            --color-crimson-light: #ef526b;
+
+            --color-focus: #67e8f9;
+
+            --color-text: #f4f1fa;
+            --color-muted: #9995aa;
+            --color-success: #6ee7b7;
+
+            --color-border: rgba(167, 139, 250, 0.2);
+
+            /* Typography */
+            --font-main: "DM Sans", Arial, Helvetica, sans-serif;
+            --font-heading: "Cinzel", Georgia, serif;
+
+            /* Border Radius */
+            --radius-small: 0.5rem;
+            --radius-medium: 1rem;
+            --radius-large: 1.5rem;
+
+            /* Motion */
+            --duration-fast: 150ms;
+            --duration-base: 250ms;
+            --duration-slow: 600ms;
+            --duration-orbit: 1800ms;
+
+            --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+            --ease-linear: linear;
+            --ease-gentle: ease-in-out;
+
+            /* Shadows */
+            --shadow-purple: 0 0 25px rgba(139, 92, 246, 0.2);
+            --shadow-crimson: 0 0 25px rgba(196, 59, 82, 0.2);
+        }
+
+
+        /* =========================================
+           2. GLOBAL RESET
+        ========================================= */
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 90px;
+        }
+
+        body {
+            min-height: 100vh;
+
+            background:
+                radial-gradient(
+                    circle at 50% 0%,
+                    rgba(139, 92, 246, 0.12),
+                    transparent 35rem
+                ),
+                var(--color-background);
+
+            color: var(--color-text);
+            font-family: var(--font-main);
+            line-height: 1.6;
+        }
+
+        h1,
+        h2,
+        h3,
+        .brand {
+            font-family: var(--font-heading);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button,
+        input,
+        textarea {
+            font: inherit;
+        }
+
+        button,
+        a {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        button:focus-visible,
+        a:focus-visible,
+        input:focus-visible,
+        textarea:focus-visible {
+            outline: 3px solid var(--color-focus);
+            outline-offset: 5px;
+        }
+
+        .container {
+            width: min(1100px, 90%);
+            margin-inline: auto;
+        }
+
+
+        /* =========================================
+           3. NAVIGATION
+        ========================================= */
+
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+
+            background: rgba(11, 11, 18, 0.9);
+
+            border-bottom: 1px solid var(--color-border);
+
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+
+        .navigation {
+            min-height: 75px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        .brand {
+            color: var(--color-text);
+
+            font-size: 1.1rem;
+            font-weight: 800;
+            letter-spacing: 0.2em;
+        }
+
+        .brand span {
+            color: var(--color-accent-light);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--color-muted);
+
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+
+            transition:
+                color var(--duration-base) var(--ease-out);
+        }
+
+        .nav-links a:hover {
+            color: var(--color-accent-light);
+        }
+
+
+        /* =========================================
+           4. HERO SECTION
+           Image: eclipse-hero.png
+        ========================================= */
+
+        .hero {
+            position: relative;
+            isolation: isolate;
+
+            min-height: 680px;
+
+            display: grid;
+            place-items: center;
+
+            padding: 7rem 0;
+
+            text-align: center;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(11, 11, 18, 0.88),
+                    rgba(11, 11, 18, 0.48),
+                    rgba(11, 11, 18, 0.82)
+                ),
+                linear-gradient(
+                    0deg,
+                    var(--color-background),
+                    transparent 55%
+                ),
+                url("assets/images/eclipse-hero.png");
+
+            background-position: center 42%;
+            background-size: cover;
+            background-repeat: no-repeat;
+
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+
+            max-width: 850px;
+        }
+
+        .eyebrow {
+            margin-bottom: 1.5rem;
+
+            color: var(--color-accent-light);
+
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            margin-bottom: 1.5rem;
+
+            font-size: clamp(2.8rem, 8vw, 6rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: 0.02em;
+
+            text-shadow:
+                0 0 25px rgba(0, 0, 0, 0.8),
+                0 0 45px rgba(139, 92, 246, 0.2);
+        }
+
+        .hero h1 span {
+            display: block;
+
+            color: var(--color-accent-light);
+
+            text-shadow:
+                0 0 25px rgba(139, 92, 246, 0.35);
+        }
+
+        .hero-description {
+            max-width: 650px;
+
+            margin: 0 auto 2.5rem;
+
+            color: #d0cbdc;
+            font-size: 1.05rem;
+        }
+
+        .hero-decoration {
+            width: 100px;
+            height: 2px;
+
+            margin: 0 auto 2rem;
+
+            background: linear-gradient(
+                90deg,
+                transparent,
+                var(--color-crimson-light),
+                var(--color-accent-light),
+                transparent
+            );
+
+            box-shadow:
+                0 0 12px rgba(196, 59, 82, 0.5);
+        }
+
+
+        /* =========================================
+           5. MICROINTERACTION 1
+           RECRUITMENT BUTTON
+
+           Job: FEEDBACK
+        ========================================= */
+
+        .recruit-button {
+            position: relative;
+
+            display: inline-block;
+
+            padding: 0.9rem 2rem;
+
+            background-color: var(--color-accent);
+            color: white;
+
+            border: 1px solid var(--color-accent-light);
+            border-radius: var(--radius-small);
+
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-align: center;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 0 12px rgba(139, 92, 246, 0.15);
+
+            transition:
+                background-color var(--duration-base) var(--ease-out),
+                color var(--duration-base) var(--ease-out),
+                border-color var(--duration-base) var(--ease-out),
+                box-shadow var(--duration-base) var(--ease-out),
+                transform var(--duration-fast) var(--ease-out),
+                opacity var(--duration-base) var(--ease-out);
+        }
+
+        /* Hover: communicate interactivity. */
+        @media (hover: hover) {
+            .recruit-button:hover:not(:disabled) {
+                background-color: var(--color-accent-light);
+                border-color: var(--color-focus);
+
+                box-shadow:
+                    0 0 12px rgba(139, 92, 246, 0.45),
+                    0 0 28px rgba(139, 92, 246, 0.25);
+            }
+        }
+
+        /* Focus: make keyboard navigation visible. */
+        .recruit-button:focus-visible {
+            outline: 3px solid var(--color-focus);
+            outline-offset: 5px;
+
+            box-shadow:
+                0 0 15px rgba(103, 232, 249, 0.3);
+        }
+
+        /* Active: create a physical press response. */
+        .recruit-button:active:not(:disabled) {
+            background-color: var(--color-accent-dark);
+
+            transform: translateY(3px);
+
+            box-shadow:
+                0 0 8px rgba(139, 92, 246, 0.3);
+        }
+
+        /* Disabled: communicate unavailable functionality. */
+        .recruit-button:disabled {
+            background-color: #383344;
+            color: #aaa3b5;
+
+            border-color: #51495f;
+
+            box-shadow: none;
+
+            cursor: not-allowed;
+            opacity: 0.55;
+        }
+
+
+        /* =========================================
+           6. GENERAL SECTION STYLES
+        ========================================= */
+
+        .section {
+            padding: 6rem 0;
+        }
+
+        .section-heading {
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .section-heading .eyebrow {
+            margin-bottom: 0.75rem;
+        }
+
+        .section-heading h2 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            line-height: 1.2;
+        }
+
+        .section-heading p {
+            max-width: 600px;
+
+            margin: 1rem auto 0;
+
+            color: var(--color-muted);
+        }
+
+
+        /* =========================================
+           7. MICROINTERACTION 2
+           GUILDBOURNE GUILD CARD
+
+           Job: ORIENTATION
+           Image: darkbourne-emblem.png
+        ========================================= */
+
+        .guild-card {
+            position: relative;
+
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+
+            padding: 2rem;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(139, 92, 246, 0.09),
+                    transparent 65%
+                ),
+                var(--color-surface);
+
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-large);
+
+            transition:
+                border-color var(--duration-base) var(--ease-out),
+                box-shadow var(--duration-base) var(--ease-out),
+                transform var(--duration-base) var(--ease-out);
+        }
+
+        /* Guild crest artwork. */
+        .guild-emblem {
+            width: 150px;
+            height: 150px;
+
+            flex-shrink: 0;
+
+            display: grid;
+            place-items: center;
+
+            background: transparent;
+            border: none;
+            border-radius: 50%;
+
+            transition:
+                transform var(--duration-base) var(--ease-out),
+                filter var(--duration-base) var(--ease-out);
+        }
+
+        .guild-emblem img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: contain;
+
+            mix-blend-mode: screen;
+
+            filter:
+                drop-shadow(
+                    0 0 12px rgba(196, 59, 82, 0.35)
+                );
+        }
+
+        .guild-information {
+            flex: 1;
+        }
+
+        .guild-information h3 {
+            margin-bottom: 0.5rem;
+
+            font-size: 1.5rem;
+        }
+
+        .guild-information p {
+            margin-bottom: 1rem;
+
+            color: var(--color-muted);
+        }
+
+        .guild-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+
+            color: var(--color-success);
+
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+
+            border-radius: 50%;
+
+            background-color: var(--color-success);
+
+            box-shadow:
+                0 0 10px var(--color-success);
+        }
+
+        .card-link {
+            flex-shrink: 0;
+
+            color: var(--color-accent-light);
+
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .arrow {
+            display: inline-block;
+
+            opacity: 0.75;
+
+            transition:
+                transform var(--duration-base) var(--ease-out),
+                opacity var(--duration-base) var(--ease-out);
+        }
+
+        /* Parent hover activates the child elements. */
+        @media (hover: hover) {
+
+            .guild-card:hover {
+                transform: translateY(-5px);
+
+                border-color: var(--color-accent-light);
+
+                box-shadow:
+                    0 12px 35px rgba(139, 92, 246, 0.18);
+            }
+
+            .guild-card:hover .guild-emblem {
+                transform: scale(1.04);
+
+                filter:
+                    drop-shadow(
+                        0 0 18px rgba(139, 92, 246, 0.5)
+                    );
+            }
+
+            .guild-card:hover .arrow {
+                transform: translateX(7px);
+                opacity: 1;
+            }
+        }
+
+        /* Keyboard focus activates the parent card. */
+        .guild-card:has(.card-link:focus-visible) {
+            border-color: var(--color-focus);
+
+            box-shadow:
+                0 0 0 1px rgba(103, 232, 249, 0.2),
+                0 12px 35px rgba(139, 92, 246, 0.18);
+        }
+
+        .guild-card:has(.card-link:focus-visible) .guild-emblem {
+            transform: scale(1.04);
+
+            filter:
+                drop-shadow(
+                    0 0 18px rgba(139, 92, 246, 0.5)
+                );
+        }
+
+        .guild-card:has(.card-link:focus-visible) .arrow {
+            transform: translateX(7px);
+            opacity: 1;
+        }
+
+
+        /* =========================================
+           8. RECRUITMENT FORM
+        ========================================= */
+
+        .recruitment-section {
+            background:
+                linear-gradient(
+                    180deg,
+                    transparent,
+                    rgba(139, 92, 246, 0.05),
+                    transparent
+                );
+        }
+
+        .recruitment-panel {
+            max-width: 700px;
+
+            margin: 0 auto;
+            padding: 2.5rem;
+
+            background: var(--color-surface);
+
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-large);
+
+            box-shadow: var(--shadow-purple);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+
+            margin-bottom: 0.6rem;
+
+            color: var(--color-text);
+
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+
+            padding: 0.9rem 1rem;
+
+            background: var(--color-background);
+            color: var(--color-text);
+
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-small);
+
+            transition:
+                border-color var(--duration-base) var(--ease-out),
+                box-shadow var(--duration-base) var(--ease-out);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #777285;
+        }
+
+        .form-group input:focus-visible,
+        .form-group textarea:focus-visible {
+            border-color: var(--color-focus);
+
+            box-shadow:
+                0 0 12px rgba(103, 232, 249, 0.12);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .form-actions .recruit-button {
+            width: 100%;
+        }
+
+        /* Centers the disabled button below the submit button. */
+        .disabled-demo {
+            display: block;
+
+            width: 100%;
+            max-width: 300px;
+
+            margin: 1rem auto 0;
+        }
+
+        .form-note {
+            margin-top: 1.5rem;
+
+            color: var(--color-muted);
+
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
+
+        /* =========================================
+           9. SYNCHRONIZATION SECTION
+           Image: realm-background.png
+        ========================================= */
+
+        .synchronization-panel {
+            position: relative;
+            isolation: isolate;
+
+            padding: 4rem 1.5rem;
+
+            background:
+                linear-gradient(
+                    rgba(11, 11, 18, 0.55),
+                    rgba(11, 11, 18, 0.85)
+                ),
+                url("assets/images/realm-background.png");
+
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-large);
+
+            box-shadow: var(--shadow-purple);
+
+            text-align: center;
+        }
+
+
+        /* =========================================
+           10. MICROINTERACTION 3
+           ECLIPSE SYNCHRONIZATION INDICATOR
+
+           Job: ATTENTION
+        ========================================= */
+
+        .loading-indicator {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Draws attention to the synchronization process. */
+        .eclipse-loader {
+            width: 65px;
+            height: 65px;
+
+            margin: 0 auto 1.5rem;
+
+            border: 4px solid rgba(139, 92, 246, 0.15);
+
+            border-top-color: var(--color-focus);
+            border-right-color: var(--color-accent-light);
+
+            border-radius: 50%;
+
+            box-shadow:
+                0 0 20px rgba(139, 92, 246, 0.2);
+
+            animation:
+                eclipse-spin var(--duration-orbit) var(--ease-linear) infinite,
+                eclipse-glow var(--duration-orbit) var(--ease-gentle) infinite;
+        }
+
+        /* Complete one revolution. */
+        @keyframes eclipse-spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Gradually intensify and soften the energy glow. */
+        @keyframes eclipse-glow {
+            0%, 100% {
+                opacity: 0.65;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        .loading-text {
+            color: var(--color-text);
+
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+
+            text-shadow:
+                0 2px 8px rgba(0, 0, 0, 0.9);
+        }
+
+
+        /* =========================================
+           11. FOOTER
+        ========================================= */
+
+        .site-footer {
+            padding: 2.5rem 0;
+
+            border-top: 1px solid var(--color-border);
+
+            color: var(--color-muted);
+
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
+        .site-footer span {
+            color: var(--color-accent-light);
+            font-family: var(--font-heading);
+        }
+
+
+        /* =========================================
+           12. RESPONSIVE DESIGN
+        ========================================= */
+
+        @media (max-width: 700px) {
+
+            .navigation {
+                flex-direction: column;
+                justify-content: center;
+
+                gap: 0.75rem;
+                padding: 1rem 0;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+
+            .hero {
+                min-height: 570px;
+                padding: 5rem 0;
+
+                background-position: center;
+            }
+
+            .hero-description {
+                font-size: 0.95rem;
+            }
+
+            .guild-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1.5rem;
+            }
+
+            .guild-emblem {
+                width: 115px;
+                height: 115px;
+            }
+
+            .card-link {
+                align-self: flex-end;
+            }
+
+            .recruitment-panel {
+                padding: 1.5rem;
+            }
+
+            .section {
+                padding: 4rem 0;
+            }
+
+            .synchronization-panel {
+                padding: 3rem 1rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+
+            .nav-links {
+                gap: 0.7rem;
+            }
+
+            .nav-links a {
+                font-size: 0.7rem;
+            }
+
+            .hero h1 {
+                font-size: 2.6rem;
+            }
+
+            .recruit-button {
+                padding: 0.85rem 1.25rem;
+                font-size: 0.8rem;
+            }
+
+            .loading-text {
+                font-size: 0.68rem;
+                letter-spacing: 0.12em;
+            }
+        }
+
+
+        /* =========================================
+           13. REDUCED MOTION
+        ========================================= */
+
+        /* Alternative to continuous rotation. */
+        @keyframes eclipse-gentle-fade {
+            0%, 100% {
+                opacity: 0.55;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            html {
+                scroll-behavior: auto;
+            }
+
+            /* Button: retain visual feedback without movement. */
+            .recruit-button {
+                transition:
+                    background-color var(--duration-base) var(--ease-out),
+                    color var(--duration-base) var(--ease-out),
+                    border-color var(--duration-base) var(--ease-out),
+                    box-shadow var(--duration-base) var(--ease-out),
+                    opacity var(--duration-base) var(--ease-out);
+            }
+
+            .recruit-button:active:not(:disabled) {
+                transform: none;
+            }
+
+            /* Card: remove lifting movement. */
+            .guild-card {
+                transition:
+                    border-color var(--duration-base) var(--ease-out),
+                    box-shadow var(--duration-base) var(--ease-out);
+            }
+
+            .guild-card:hover,
+            .guild-card:has(.card-link:focus-visible) {
+                transform: none;
+            }
+
+            /* Emblem: remove scaling. */
+            .guild-emblem {
+                transition: filter var(--duration-base) var(--ease-out);
+            }
+
+            .guild-card:hover .guild-emblem,
+            .guild-card:has(.card-link:focus-visible) .guild-emblem {
+                transform: none;
+            }
+
+            /* Arrow: remove horizontal movement. */
+            .arrow {
+                transition: opacity var(--duration-base) var(--ease-out);
+            }
+
+            .guild-card:hover .arrow,
+            .guild-card:has(.card-link:focus-visible) .arrow {
+                transform: none;
+                opacity: 1;
+            }
+
+            /* Loader: replace rotation with gentle fading. */
+            .eclipse-loader {
+                animation:
+                    eclipse-gentle-fade 2.4s var(--ease-gentle) infinite;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+    <!-- =========================================
+         NAVIGATION
+    ========================================= -->
+
+    <header class="site-header">
+
+        <nav class="navigation container" aria-label="Main navigation">
+
+            <a class="brand" href="#home">
+                DARK<span>BOURNE</span>
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="#home">HOME</a></li>
+                <li><a href="#guild">THE GUILD</a></li>
+                <li><a href="#recruitment">RECRUITMENT</a></li>
+                <li><a href="#synchronization">STATUS</a></li>
+            </ul>
+
+        </nav>
+
+    </header>
+
+
+    <main>
+
+        <!-- =========================================
+             HERO SECTION
+        ========================================= -->
+
+        <section class="hero container" id="home">
+
+            <div class="hero-content">
+
+                <p class="eyebrow">
+                    The Infinite Realms Await
+                </p>
+
+                <div class="hero-decoration"></div>
+
+                <h1>
+                    THE ECLIPSE
+                    <span>INITIATIVE</span>
+                </h1>
+
+                <p class="hero-description">
+                    Beyond the boundaries of the known worlds lies an
+                    opportunity reserved for the exceptional.
+
+                    Discover your strength, forge your legacy, and
+                    become part of something greater than yourself.
+                </p>
+
+                <a class="recruit-button" href="#recruitment">
+                    BEGIN RECRUITMENT
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================
+             GUILD SECTION
+        ========================================= -->
+
+        <section class="section container" id="guild">
+
+            <div class="section-heading">
+
+                <p class="eyebrow">
+                    One Guild. Infinite Possibilities.
+                </p>
+
+                <h2>Enter DarkBourne</h2>
+
+                <p>
+                    Strength is not defined by origin.
+                    Every member brings something different
+                    to the Infinite Realms.
+                </p>
+
+            </div>
+
+
+            <!-- Microinteraction 2: Parent/Sibling Trigger -->
+
+            <article class="guild-card">
+
+                <div class="guild-emblem" aria-hidden="true">
+
+                    <img
+                        src="assets/images/darkbourne-emblem.png"
+                        alt=""
+                    >
+
+                </div>
+
+
+                <div class="guild-information">
+
+                    <h3>DarkBourne Guild</h3>
+
+                    <p>
+                        A gathering of exceptional individuals from
+                        across the Infinite Realms.
+
+                        Every member contributes their own strength
+                        to the Guild's expanding legacy.
+                    </p>
+
+                    <div class="guild-status">
+
+                        <span
+                            class="status-dot"
+                            aria-hidden="true"
+                        ></span>
+
+                        Recruitment Open
+
+                    </div>
+
+                </div>
+
+
+                <a
+                    href="#recruitment"
+                    class="card-link"
+                    aria-label="Explore DarkBourne Guild recruitment"
+                >
+                    <span class="arrow" aria-hidden="true">→</span>
+                </a>
+
+            </article>
+
+        </section>
+
+
+        <!-- =========================================
+             RECRUITMENT SECTION
+        ========================================= -->
+
+        <section
+            class="section recruitment-section"
+            id="recruitment"
+        >
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <p class="eyebrow">
+                        Your Journey Begins Here
+                    </p>
+
+                    <h2>Apply for Recruitment</h2>
+
+                    <p>
+                        Introduce yourself to the Guild.
+                        Your story starts with a single decision.
+                    </p>
+
+                </div>
+
+
+                <div class="recruitment-panel">
+
+                    <form action="#" method="get">
+
+                        <div class="form-group">
+
+                            <label for="applicant-name">
+                                Applicant Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="applicant-name"
+                                name="applicant-name"
+                                placeholder="Enter your name"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="applicant-email">
+                                Email Address
+                            </label>
+
+                            <input
+                                type="email"
+                                id="applicant-email"
+                                name="applicant-email"
+                                placeholder="Enter your email"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="applicant-ability">
+                                Primary Ability
+                            </label>
+
+                            <input
+                                type="text"
+                                id="applicant-ability"
+                                name="applicant-ability"
+                                placeholder="Describe your primary ability"
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="applicant-message">
+                                Why do you seek entry into DarkBourne?
+                            </label>
+
+                            <textarea
+                                id="applicant-message"
+                                name="applicant-message"
+                                placeholder="Tell the Guild your story..."
+                            ></textarea>
+
+                        </div>
+
+
+                        <div class="form-actions">
+
+                            <!-- Interactive submit button -->
+
+                            <button
+                                class="recruit-button"
+                                type="submit"
+                            >
+                                SUBMIT APPLICATION
+                            </button>
+
+
+                            <!-- Disabled state demonstration -->
+
+                            <button
+                                class="recruit-button disabled-demo"
+                                type="button"
+                                disabled
+                            >
+                                RECRUITMENT UNAVAILABLE
+                            </button>
+
+                        </div>
+
+
+                        <p class="form-note">
+                            This is a front-end demonstration.
+                            Applications are not actually submitted.
+                        </p>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================
+             SYNCHRONIZATION SECTION
+        ========================================= -->
+
+        <section
+            class="section container"
+            id="synchronization"
+        >
+
+            <div class="section-heading">
+
+                <p class="eyebrow">
+                    Realm Connection Status
+                </p>
+
+                <h2>Synchronization</h2>
+
+                <p>
+                    Establishing a connection with the Infinite Realms.
+                </p>
+
+            </div>
+
+
+            <div class="synchronization-panel">
+
+                <!-- Microinteraction 3: Looping Animation -->
+
+                <div class="loading-indicator" role="status">
+
+                    <div
+                        class="eclipse-loader"
+                        aria-hidden="true"
+                    ></div>
+
+                    <p class="loading-text">
+                        Synchronizing with the Infinite Realms...
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================================
+         FOOTER
+    ========================================= -->
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <p>
+                © 2026
+                <span>DarkBourne Guild</span>.
+                The Eclipse Initiative.
+            </p>
+
+        </div>
+
+    </footer>
+
+</body>
+
+</html>
